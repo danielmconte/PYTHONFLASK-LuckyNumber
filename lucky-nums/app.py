@@ -18,6 +18,7 @@ def homepage():
 
 @app.route("/api/get-lucky-num", methods=['POST'])
 def create_response():
+    
     # if not 'color' in request.form:
     #     response = {
     #         "Must have name, email, year and color"
@@ -60,46 +61,5 @@ def create_response():
     # db.session.add(new_response)
     # db.session.commit()  
     # return (jsonify(response=new_response.serialize()), 201)
-
-
-
-
-# @app.route("/response")
-# def new_response():
-#     response = {
-#     "errors": {
-#         "color": [
-#         "Invalid value, must be one of: red, green, orange, blue."
-#         ],
-#         "name": [
-#         "This field is required."
-#         ]
-#     }
-#     }
-
-#     return jsonify(response); 
-
-# @app.route("/api/get-lucky-num", methods=['POST'])
-# def get_num(): 
-#     name = request.form['name']
-#     email = request.form['email']
-#     year = request.form['year']
-#     color = request.form['color']
-
-#     num_fact = requests.get('http://numbersapi.com/random?min=1&max=100')
-#     year_fact = requests.get(f'http://numbersapi.com/{year}/year')
-#     print()
-#     # obj = jsonify(name=name, email=email, year=year, color=color, num_fact=num_fact, year_fact=year_fact)
-#     response = {
-#         "num": {
-#             "fact": num_fact,
-#             "num": 25
-#         },
-#         "year": {
-#             "fact": year_fact,
-#             "year": year
-#         }
-#     }
-#     return jsonify(response)
 
 
