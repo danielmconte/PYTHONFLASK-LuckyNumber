@@ -16,69 +16,90 @@ def homepage():
 
     return render_template("index.html")
 
-# @app.route("/api/get-lucky-num", methods=['POST'])
-# def create_response():
-#     new_response = Response(
-#                     name=request.json['name'],
-#                     email=request.json['name'],
-#                     year=request.json['year'],
-#                     color=request.json['color']
-#                     )
-#     response_json = new_response.serialize()
-#     db.session.add(response_json)
-#     db.session.commit() 
-#     return ("It's all there", 201)
-
-@app.route("/response")
-def new_response():
-    response = {
-    "errors": {
-        "color": [
-        "Invalid value, must be one of: red, green, orange, blue."
-        ],
-        "name": [
-        "This field is required."
-        ]
-    }
-    }
-
-    return jsonify(response); 
-
 @app.route("/api/get-lucky-num", methods=['POST'])
-def get_num(): 
-    name = request.form['name']
-    email = request.form['email']
-    year = request.form['year']
-    color = request.form['color']
+def create_response():
+    # if not 'color' in request.form:
+    #     response = {
+    #         "Must have name, email, year and color"
+    #     }
+    #     return response
+    
+    # else:
+        
+    data = request.json
+    new_response = Response(
+                    name=data['name'],
+                    email=data['email'],
+                    year=data['year'],
+                    color=data['color']
+                    )
+    
+    a_response = jsonify(response=new_response.serialize())
+    
 
+    
     num_fact = requests.get('http://numbersapi.com/random?min=1&max=100')
-    year_fact = requests.get(f'http://numbersapi.com/{year}/year')
-    print()
-    # obj = jsonify(name=name, email=email, year=year, color=color, num_fact=num_fact, year_fact=year_fact)
+    year_fact = requests.get(f'http://numbersapi.com/{new_response.year}/year')
+
+
     response = {
         "num": {
-            "fact": num_fact,
-            "num": 25
+            "fact": f'{num_fact.text}'
         },
         "year": {
-            "fact": year_fact,
-            "year": year
+            "fact": f'{year_fact.text}',
+            "year": f'{new_response.year}'
         }
     }
-    return jsonify(response)
+    
+    return response
 
+   
+   
+    # This works for db
+    # db.session.add(new_response)
+    # db.session.commit()  
+    # return (jsonify(response=new_response.serialize()), 201)
+
+
+
+
+# @app.route("/response")
+# def new_response():
+#     response = {
+#     "errors": {
+#         "color": [
+#         "Invalid value, must be one of: red, green, orange, blue."
+#         ],
+#         "name": [
+#         "This field is required."
+#         ]
+#     }
+#     }
+
+#     return jsonify(response); 
 
 # @app.route("/api/get-lucky-num", methods=['POST'])
 # def get_num(): 
-
-#     name = form.name.data   
-#     email = form.email.data
-#     year = form.year.data
-#     color = form.color.data
+#     name = request.form['name']
+#     email = request.form['email']
+#     year = request.form['year']
+#     color = request.form['color']
 
 #     num_fact = requests.get('http://numbersapi.com/random?min=1&max=100')
 #     year_fact = requests.get(f'http://numbersapi.com/{year}/year')
+#     print()
+#     # obj = jsonify(name=name, email=email, year=year, color=color, num_fact=num_fact, year_fact=year_fact)
+#     response = {
+#         "num": {
+#             "fact": num_fact,
+#             "num": 25
+#         },
+#         "year": {
+#             "fact": year_fact,
+#             "year": year
+#         }
+#     }
+#     return jsonify(response)
 
-#     obj = jsonify(name=name, email=email, year=year, color=color, num_fact=num_fact, year_fact=year_fact)
 
-#     return obj 
