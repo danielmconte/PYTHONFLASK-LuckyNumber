@@ -35,7 +35,7 @@ def create_response():
                     color=data['color']
                     )
     
-    a_response = jsonify(response=new_response.serialize())
+    # a_response = jsonify(response=new_response.serialize())
     
 
     
@@ -52,7 +52,8 @@ def create_response():
             "year": f'{new_response.year}'
         }
     }
-    
+    db.session.add(new_response)
+    db.session.commit()      
     return response
 
    
