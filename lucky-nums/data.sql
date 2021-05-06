@@ -10,7 +10,7 @@ CREATE DATABASE lucky_num_db;
 \c lucky_num_db
 
 
-CREATE TABLE photos (
+CREATE TABLE responses (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     email TEXT NOT NULL,

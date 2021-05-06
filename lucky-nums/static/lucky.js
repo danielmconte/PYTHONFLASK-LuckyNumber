@@ -13,26 +13,7 @@ let theColorErr = document.querySelector('#color-err');
 
 async function processForm(evt) {
     evt.preventDefault();
-    if(!theName.value){
-        theNameErr.innerText = "Must enter a name";
-    }
-    else if(!theYear.value){
-        theYearErr.innerText = "Must enter a year";
-    }
-    else if(!theEmail.value){
-        theEmailErr.innerText = "Must enter an email ";
-    }
-    else if(!theColor.value){
-        theColorErr.innerText = "Must enter a color";
-    }else {
-
-
-    let response = await axios.post(`${BASE_URL}/api/get-lucky-num`, {
-        "name": theName.value,
-        "email":theEmail.value,
-        "year": theYear.value,
-        "color":theColor.value
-    });
+    let response = await axios.get(`${BASE_URL}/api/get-lucky-num`)
     handleResponse(response);
 }
 }
